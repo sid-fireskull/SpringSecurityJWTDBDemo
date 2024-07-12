@@ -1,4 +1,4 @@
-package com.demo.security;
+package com.demo.security.securityConfig;
 
 import java.io.IOException;
 import java.io.PrintWriter;

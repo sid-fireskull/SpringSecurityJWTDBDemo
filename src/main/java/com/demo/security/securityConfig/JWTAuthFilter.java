@@ -1,4 +1,4 @@
-package com.demo.security;
+package com.demo.security.securityConfig;
 
 import java.io.IOException;
 
@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.ExpiredJwtException;
@@ -19,6 +20,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@Component
 public class JWTAuthFilter extends OncePerRequestFilter{
 
     private Logger logger = LoggerFactory.getLogger(OncePerRequestFilter.class);
@@ -38,10 +40,8 @@ public class JWTAuthFilter extends OncePerRequestFilter{
         String username = null;
         String token = null;
         if (requestHeader != null && requestHeader.startsWith("Bearer")) {
-            //looking good
             token = requestHeader.substring(7);
             try {
-
                 username = this.jwtHelper.getUsernameFromToken(token);
 
             } catch (IllegalArgumentException e) {
@@ -57,7 +57,6 @@ public class JWTAuthFilter extends OncePerRequestFilter{
                 e.printStackTrace();
 
             }
-
 
         } else {
             logger.info("Invalid Header Value !! ");

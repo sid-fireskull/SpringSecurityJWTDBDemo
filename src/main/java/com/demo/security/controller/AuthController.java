@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.demo.security.JWTHelper;
 import com.demo.security.auth.model.JWTRequest;
 import com.demo.security.auth.model.JWTResponse;
+import com.demo.security.securityConfig.JWTHelper;
 
 @RestController
 @RequestMapping("/auth")
@@ -47,13 +47,13 @@ public class AuthController {
 
 	        JWTResponse response = JWTResponse.builder()
 	                .jwtToken(token)
-	                .username(userDetails.getUsername()).build();
+	                .userName(userDetails.getUsername()).build();
 	        return new ResponseEntity<>(response, HttpStatus.OK);
 	    }
 
-	    private void doAuthenticate(String email, String password) {
+	    private void doAuthenticate(String userName, String password) {
 
-	        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, password);
+	        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userName, password);
 	        try {
 	            manager.authenticate(authentication);
 
